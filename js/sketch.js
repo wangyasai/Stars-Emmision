@@ -22,13 +22,13 @@ function draw() {
 
     if(options.Direction == 'Center'){
         translate(width/2,height/2);
-    }else if (options.Direction == 'Left'){
-        translate(0,height/2);
     }else if (options.Direction == 'Right'){
+        translate(0,height/2);
+    }else if (options.Direction == 'Left'){
         translate(width,height/2);
-    }else if (options.Direction == 'Up'){
-        translate(width/2,0);
     }else if (options.Direction == 'Down'){
+        translate(width/2,0);
+    }else if (options.Direction == 'Up'){
         translate(width/2,height);
     }
     
