@@ -1,3 +1,7 @@
+<!-- Hello, This is a simple particles emision tool that can generate different shapes through the controls.
+ I hope you like this tool,have fuuuuuun:)-->
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,7 +91,7 @@ var options ={
   Color1 : [255,48,84],
   Color2 : [70,20,233],
   Range : 400,
-  Shadow : 100,
+  Shadow : 30,
   Speed : 20,
   Points : 600,
   maxSize : 10,
@@ -103,7 +107,7 @@ var options ={
           options.Points = random(300,2000);
           options.maxSize = random(1,20);
           options.minSize = random(1,5);  
-          options.Shape = random( ['Center', 'Left','Right','Up','Down'] );       
+          options.Shape = random( ['Center', 'Left','Right','Up','Down','Circle'] );       
         },
 
   isPNG: false,
@@ -133,7 +137,7 @@ window.onload = function() {
   var color2Control = folder1.addColor(options, 'Color2');
   color2Control.onChange(draw);
 
-  var alphaControl = folder1.add(options, 'Shadow',60,200);
+  var alphaControl = folder1.add(options, 'Shadow',0,255);
   alphaControl.onChange(draw);
 
   var speedControl = folder1.add(options, 'Speed',10,40);
@@ -151,7 +155,7 @@ window.onload = function() {
   var minSizeControl = folder1.add(options, 'minSize',0,20);
   minSizeControl.onChange(draw);
 
-  var DirControl = folder1.add(options, 'Direction',['Center', 'Left','Right','Up','Down'] );
+  var DirControl = folder1.add(options, 'Direction',['Center', 'Left','Right','Up','Down','Circle'] );
 
   var RandomControl = folder1.add(options, 'Random');
 
