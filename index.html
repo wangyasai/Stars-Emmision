@@ -91,7 +91,6 @@ var options ={
   Color1 : [255,48,84],
   Color2 : [70,20,233],
   Range : 400,
-  Shadow : 30,
   Speed : 20,
   Points : 600,
   maxSize : 10,
@@ -103,11 +102,10 @@ var options ={
           options.Color2 = [random(0,255),random(0,255),random(0,255)];        
           options.Speed = random(10,20);
           options.Range = random(400);
-          options.Shadow = random(10,50);
           options.Points = random(300,2000);
           options.maxSize = random(1,20);
           options.minSize = random(1,5);  
-          options.Shape = random( ['Center', 'Left','Right','Up','Down','Circle'] );       
+          options.Shape = random( ['Center', 'Left','Right','Up','Down'] );       
         },
 
   isPNG: false,
@@ -115,9 +113,10 @@ var options ={
   Save : function(){
     saveFrames("Star-Emission", "png", 1, 1);
   },
-  SaveGif : function(){
-    createGif();
-  }
+
+  // SaveGif : function(){
+  //   createGif();
+  // }
 }
 
 
@@ -137,13 +136,10 @@ window.onload = function() {
   var color2Control = folder1.addColor(options, 'Color2');
   color2Control.onChange(draw);
 
-  var alphaControl = folder1.add(options, 'Shadow',0,255);
-  alphaControl.onChange(draw);
-
   var speedControl = folder1.add(options, 'Speed',10,40);
   speedControl.onChange(draw);
 
-  var PointsControl = folder1.add(options, 'Points',100,3000);
+  var PointsControl = folder1.add(options, 'Points',100,4000);
   PointsControl.onChange(draw);
 
   var PointsControl = folder1.add(options, 'Range',100,2000);
@@ -152,21 +148,21 @@ window.onload = function() {
   var maxSizeControl = folder1.add(options, 'maxSize',0,20);
   maxSizeControl.onChange(draw);
 
-  var minSizeControl = folder1.add(options, 'minSize',0,20);
+  var minSizeControl = folder1.add(options, 'minSize',0,10);
   minSizeControl.onChange(draw);
 
-  var DirControl = folder1.add(options, 'Direction',['Center', 'Left','Right','Up','Down','Circle'] );
+  var DirControl = folder1.add(options, 'Direction',['Center', 'Left','Right','Up','Down'] );
 
   var RandomControl = folder1.add(options, 'Random');
 
 
   //folder2
   var folder2 = gui.addFolder('Save');
-  // var isPNGControl = folder3.add(options, 'isPNG');
+  // var isPNGControl = folder2.add(options, 'isPNG');
   // isPNGControl.onChange(draw);
 
   var SaveControl = folder2.add(options, 'Save');
-  var SaveControl = folder2.add(options, 'SaveGif');
+  // var SaveControl = folder2.add(options, 'SaveGif');
 
 
   folder1.open();
