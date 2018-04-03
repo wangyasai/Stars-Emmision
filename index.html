@@ -73,16 +73,13 @@
 <body>
 
 <div id="credits"> Created by  <a href = "https://weibo.com/psaiaevegas/profile?rightmod=1&wvr=6&mod=personnumber" target="_blank" style="color: #939393;">@亚赛大人</a>  |  <a href = "http://yasaisai.tumblr.com" target="_blank" style="color: #939393;"> Tumblr Arhive </a> </div>
-<div class="progress-box">
-  <p class="save-gif-tip">(｀・ω・´) Gif is saving , please wait a moment </p>
-  <p class="progress-bar"></p>
-</div>
+
 <script type="text/javascript">
 
 var type;
 var options ={  
-  Background : [10,10,10],
-  Color1 : '#FF3054',//[255,48,84],
+  Background :[10,10,10],
+  Color1 : '#FF3054',
   Color2 : '#4614E9',
   Range : 400,
   Speed : 20,
@@ -99,112 +96,84 @@ var options ={
           options.Points = random(300,2000);
           options.maxSize = random(1,20);
           options.minSize = random(1,5);  
-          options.Shape = random( ['Center', 'Left','Right','Up','Down'] );       
+          options.Direction = random( ['Center', 'Left','Right','Up','Down'] );  
+
+          // color1
+          var color1 = rgbToHex(Math.floor(options.Color1[0]),Math.floor(options.Color1[1]),Math.floor(options.Color1[2]));
+          color1Control.setValue(color1);
+
+          //color2
+          var color2 = rgbToHex(Math.floor(options.Color2[0]),Math.floor(options.Color2[1]),Math.floor(options.Color2[2]));
+          color2Control.setValue(color2);
         },
 
-  isPNG: false,
-  
   Save : function(){
     saveFrames("Star-Emission", "png", 1, 1);
   },
 
-  // SaveGif : function(){
-  //   createGif();
-  // }
 }
 
 
-var text, gui, config;
+var text, gui, config,BgControl, BgColor,color1Control,color2Control,speedControl,PointsControl,RangeControl,maxSizeControl,minSizeControl,DirControl;
 window.onload = function() {
   gui = new dat.GUI();
 
   //folder1
   var folder1 = gui.addFolder('Controls');
 
-  var BgControl = folder1.addColor(options, 'Background');
+  BgControl = folder1.addColor(options, 'Background');
   BgControl.onChange(draw);
 
-  var color1Control = folder1.addColor(options, 'Color1');
+  color1Control = folder1.addColor(options, 'Color1');
   color1Control.onChange(draw);
+  color1Control.listen();
 
-  var color2Control = folder1.addColor(options, 'Color2');
+  color2Control = folder1.addColor(options, 'Color2');
   color2Control.onChange(draw);
+  color2Control.listen();
 
-  var speedControl = folder1.add(options, 'Speed',10,40);
+  speedControl = folder1.add(options, 'Speed',10,40);
   speedControl.onChange(draw);
+  speedControl.listen();
 
-  var PointsControl = folder1.add(options, 'Points',100,4000);
+  PointsControl = folder1.add(options, 'Points',100,4000);
   PointsControl.onChange(draw);
+  PointsControl.listen();
 
-  var PointsControl = folder1.add(options, 'Range',100,2000);
-  PointsControl.onChange(draw);
+  RangeControl = folder1.add(options, 'Range',100,2000);
+  RangeControl.onChange(draw);
+  RangeControl.listen();
 
-  var maxSizeControl = folder1.add(options, 'maxSize',0,20);
+  maxSizeControl = folder1.add(options, 'maxSize',0,20);
   maxSizeControl.onChange(draw);
+  maxSizeControl.listen();
 
-  var minSizeControl = folder1.add(options, 'minSize',0,10);
+  minSizeControl = folder1.add(options, 'minSize',0,10);
   minSizeControl.onChange(draw);
+  minSizeControl.listen();
 
-  var DirControl = folder1.add(options, 'Direction',['Center', 'Left','Right','Up','Down'] );
+  DirControl = folder1.add(options, 'Direction',['Center', 'Left','Right','Up','Down'] );
+  DirControl.listen();
 
   var RandomControl = folder1.add(options, 'Random');
 
-
-  //folder2
-  var folder2 = gui.addFolder('Save');
-  // var isPNGControl = folder2.add(options, 'isPNG');
-  // isPNGControl.onChange(draw);
-
-  var SaveControl = folder2.add(options, 'Save');
-  // var SaveControl = folder2.add(options, 'SaveGif');
-
+  var SaveControl = folder1.add(options, 'Save');
 
   folder1.open();
-  folder2.open();
+
 };
 
 
-var gif = new GIF({
-  workers: 2,
-  quality: 10,
-  workerScript:'js/gif.worker.js'
-});
-
-var canvas = document.getElementById('defaultCanvas0'),
-  t, needFrames = 28, startFrame=0, delay=120,
-  progressBar = document.querySelector('.progress-bar'),
-  progressTip = document.querySelector('.save-gif-tip');
-
-function createGif(){
-  t = setInterval(addFrame,50); 
+//rgb to hex颜色转换
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
 }
 
-
-function addFrame(){
-  gif.addFrame(canvas,{delay:delay});
-  startFrame++;
-  progressBar.style.width = 100*(startFrame/needFrames)+'%';
-  if(startFrame>=needFrames){
-    finishGif();
-  }
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
-
-function finishGif(){
-  clearInterval(t);
-  progressTip.style.display='block';
-  gif.on('finished', function(blob) {
-    window.open(URL.createObjectURL(blob));
-    var anchor = document.createElement('a');
-    anchor.href = URL.createObjectURL(blob);
-    anchor.download ='1.gif';
-    progressTip.style.display='none';
-    progressBar.style.width =0;
-    anchor.click();
-  });
-
-  gif.render();
-}
 
 </script>
 
