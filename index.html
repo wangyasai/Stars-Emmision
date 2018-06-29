@@ -1,102 +1,112 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Star Emission</title>
-<meta name="description" content="">
-<meta name="keywords" content="">
-<link href="" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Star Emission</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <link href="" rel="stylesheet">
 
-<!-- Global Site Tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115624840-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Global Site Tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115624840-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  gtag('config', 'GA_TRACKING_ID');
-</script>
- 
+    gtag('config', 'GA_TRACKING_ID');
+  </script>
+  
 
-<link rel="icon" href="image/1.ico" type="image/x-icon">
-<link rel="shortcut icon" href="image/1.ico" type="image/x-icon">
+  <link rel="icon" href="image/1.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="image/1.ico" type="image/x-icon">
+  <link rel="stylesheet" type="text/css" href="fonts.css">
+  <script type="text/javascript" src="js/dat.gui.min.js"></script>
+  <script type="text/javascript" src="js/p5.min.js"></script>
+  <script type="text/javascript" src="js/gif.js"></script>
+  <script type="text/javascript" src="js/p5.dom.min.js"></script>
 
-<script type="text/javascript" src="js/dat.gui.min.js"></script>
-<script type="text/javascript" src="js/p5.min.js"></script>
-<script type="text/javascript" src="js/gif.js"></script>
-<script type="text/javascript" src="js/p5.dom.min.js"></script>
 
+  <input id="img-path" type="file" />
 
-<input id="img-path" type="file" />
-
-<style type="text/css">
+  <style type="text/css">
   *{
     margin:0;
     padding:0;
   }
 
-#credits {
-  font-size: 12px;
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-  opacity: 0.8;
-  color: #939393;
-  max-width: 70%;
-  text-align: right;
-}
+  #credits {
+    font-size: 12px;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    opacity: 0.8;
+    color: #939393;
+    max-width: 70%;
+    text-align: right;
+  }
 
-#img-path {
+  #img-path {
     display: none;
-}
-.progress-box{
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-}
-.progress-bar{
-  height: 3px;
-  width: 0%;
-  background-color: #e61d5f;
-}
-.save-gif-tip{
-  display: none;
-  margin-bottom: 5px;
-  text-align: center;
-  font-size: 16px;
-  color: white;
-}
+  }
+  .progress-box{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
+  .progress-bar{
+    height: 3px;
+    width: 0%;
+    background-color: #e61d5f;
+  }
+  .save-gif-tip{
+    display: none;
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 16px;
+    color: white;
+  }
 </style>
 </head>
 <body>
 
-<div id="credits"> Created by  <a href = "https://weibo.com/psaiaevegas/profile?rightmod=1&wvr=6&mod=personnumber" target="_blank" style="color: #939393;">@亚赛大人</a>  |  <a href = "https://www.instagram.com/yasaisai/" target="_blank" style="color: #939393;"> Instagram </a> </div>
+ <div id="credits"> 
+  <div class ="iconlink"> 
+    <div class = "socaial">
+      <span><a class="icon-weibo" href="https://weibo.com/psaiaevegas/profile?rightmod=1&wvr=6&mod=personnumber"  target="_blank"  data-icon="&#xe906;" ></a></span>
+      <span><a class="icon-zhihu" href="https://www.zhihu.com/people/wang-ya-sai/activities"  target="_blank"  data-icon="&#xe907;"></a></span>
+      <span><a class="icon-instagram" href="http://instagram.com/yasaisai"  target="_blank"  data-icon="&#xe903;"></a></span>
+      <span><a class="icon-twitter" href="https://twitter.com/yasai_wang"  target="_blank"  data-icon="&#xe905;"></a></span>
+    </div>
+    <div class = "socaial" style="color:#FFFFFF;font-size: 10pt; margin-right:10px;margin-top: -180px">Created by @yasai </div>
+  </div>
+</div>
 
 <script type="text/javascript">
 
-var type;
-var options ={  
-  Background :[10,10,10],
-  Color1 : '#FF3054',
-  Color2 : '#4614E9',
-  Range : 400,
-  Speed : 20,
-  Points : 1000,
-  maxSize : 10,
-  minSize: 3,
-  Direction : 'Center',
+  var type;
+  var options ={  
+    Background :[10,10,10],
+    Color1 : '#FF3054',
+    Color2 : '#4614E9',
+    Range : 400,
+    Speed : 20,
+    Points : 1000,
+    maxSize : 10,
+    minSize: 3,
+    Direction : 'Center',
 
-  Random: function () { 
-          options.Color1 = [random(0,255),random(0,255),random(0,255)]; 
-          options.Color2 = [random(0,255),random(0,255),random(0,255)];        
-          options.Speed = random(10,20);
-          options.Range = random(400);
-          options.Points = random(300,2000);
-          options.maxSize = random(1,20);
-          options.minSize = random(1,5);  
-          options.Direction = random( ['Center', 'Left','Right','Up','Down'] );  
+    Random: function () { 
+      options.Color1 = [random(0,255),random(0,255),random(0,255)]; 
+      options.Color2 = [random(0,255),random(0,255),random(0,255)];        
+      options.Speed = random(10,20);
+      options.Range = random(400);
+      options.Points = random(300,2000);
+      options.maxSize = random(1,20);
+      options.minSize = random(1,5);  
+      options.Direction = random( ['Center', 'Left','Right','Up','Down'] );  
 
           // color1
           var color1 = rgbToHex(Math.floor(options.Color1[0]),Math.floor(options.Color1[1]),Math.floor(options.Color1[2]));
@@ -107,16 +117,16 @@ var options ={
           color2Control.setValue(color2);
         },
 
-  Save : function(){
-    saveFrames("Star-Emission", "png", 1, 1);
-  },
+        Save : function(){
+          saveFrames("Star-Emission", "png", 1, 1);
+        },
 
-}
+      }
 
 
-var text, gui, config,BgControl, BgColor,color1Control,color2Control,speedControl,PointsControl,RangeControl,maxSizeControl,minSizeControl,DirControl;
-window.onload = function() {
-  gui = new dat.GUI();
+      var text, gui, config,BgControl, BgColor,color1Control,color2Control,speedControl,PointsControl,RangeControl,maxSizeControl,minSizeControl,DirControl;
+      window.onload = function() {
+        gui = new dat.GUI();
 
   //folder1
   var folder1 = gui.addFolder('Controls');
@@ -166,12 +176,12 @@ window.onload = function() {
 
 //rgb to hex颜色转换
 function componentToHex(c) {
-    var hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
 }
 
 function rgbToHex(r, g, b) {
-    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
 
