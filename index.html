@@ -104,7 +104,11 @@
     maxSize : 10,
     minSize: 3,
     Direction : 'Center',
-
+    SavePNG : false,
+    Save : function(){
+       saveFrames("Emmision", "png", 1, 1);
+    },
+    
     Random: function () { 
       options.Color1 = [random(0,255),random(0,255),random(0,255)]; 
       options.Color2 = [random(0,255),random(0,255),random(0,255)];        
@@ -124,10 +128,7 @@
           color2Control.setValue(color2);
         },
 
-        Save : function(){
-          save("Star-Emission.png");
-        },
-
+     
       }
 
 
