@@ -116,7 +116,11 @@
     maxSize : 10,
     minSize: 3,
     Direction : 'Center',
-
+    SavePNG : false,
+    Save : function(){
+       saveFrames("Emmision", "png", 1, 1);
+    },
+    
     Random: function () { 
       options.Color1 = [random(0,255),random(0,255),random(0,255)]; 
       options.Color2 = [random(0,255),random(0,255),random(0,255)];        
@@ -136,10 +140,7 @@
           color2Control.setValue(color2);
         },
 
-        Save : function(){
-          saveFrames("Star-Emission", "png", 1, 1);
-        },
-
+     
       }
 
 
@@ -155,11 +156,11 @@
 
   color1Control = folder1.addColor(options, 'Color1');
   color1Control.onChange(draw);
-  color1Control.listen();
+//   color1Control.listen();
 
   color2Control = folder1.addColor(options, 'Color2');
   color2Control.onChange(draw);
-  color2Control.listen();
+//   color2Control.listen();
 
   speedControl = folder1.add(options, 'Speed',10,40);
   speedControl.onChange(draw);
