@@ -19,78 +19,78 @@
   <input id="img-path" type="file" />
 
   <style type="text/css">
-  *{
-    margin:0;
-    padding:0;
-  }
+    *{
+      margin:0;
+      padding:0;
+    }
 
-  #credits {
-    font-size: 12px;
-    position: absolute;
-    bottom: -25px;
-    right: 15px;
-    opacity: 0.6;
-    color: #ffffff;
-    max-width: 70%;
-    text-align: right;
-    line-height: 20px;
-  }
+    #credits {
+      font-size: 12px;
+      position: absolute;
+      bottom: -25px;
+      right: 15px;
+      opacity: 0.6;
+      color: #ffffff;
+      max-width: 70%;
+      text-align: right;
+      line-height: 20px;
+    }
 
 
-  .logo {
-    font-size: 12px;
-    position: absolute;
-    bottom: 80px;
-    left: 25px;
-    color: #ffffff;
-    max-width: 70%;
-    line-height: 20px;
-    opacity: 0.7;
-  }
+    .logo {
+      font-size: 12px;
+      position: absolute;
+      bottom: 80px;
+      left: 25px;
+      color: #ffffff;
+      max-width: 70%;
+      line-height: 20px;
+      opacity: 0.7;
+    }
 
-.iconlink{
-  bottom: 50px;
-  margin-right: 0px;
- }
+    .iconlink{
+      bottom: 50px;
+      margin-right: 0px;
+    }
 
-  #img-path {
-    display: none;
-  }
-  .progress-box{
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-  }
-  .progress-bar{
-    height: 3px;
-    width: 0%;
-    background-color: #e61d5f;
-  }
-  .save-gif-tip{
-    display: none;
-    margin-bottom: 5px;
-    text-align: center;
-    font-size: 16px;
-    color: white;
-  }
-</style>
+    #img-path {
+      display: none;
+    }
+    .progress-box{
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+    }
+    .progress-bar{
+      height: 3px;
+      width: 0%;
+      background-color: #e61d5f;
+    }
+    .save-gif-tip{
+      display: none;
+      margin-bottom: 5px;
+      text-align: center;
+      font-size: 16px;
+      color: white;
+    }
+  </style>
 
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?44f8fa2f0b239ea3093628142486b48a";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?44f8fa2f0b239ea3093628142486b48a";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 </head>
 <body>
 
  <div id="credits"> 
-    <div class = "socaial" style="margin-right:10px">Created by @Yasai</div>
+  <div class = "socaial" style="margin-right:10px">Created by @Yasai</div>
   <div class = "socaial" style="margin-right:10px; margin-bottom: -40px">©️All my products may be used in both personal and commercial projects   </div>
   <div class ="iconlink"> 
     <span><a class="icon-weibo" href="https://weibo.com/psaiaevegas/profile?rightmod=1&wvr=6&mod=personnumber"  target="_blank"  data-icon="&#xe906;" ></a></span>
@@ -110,7 +110,7 @@ var _hmt = _hmt || [];
     Color1 : '#FF3054',
     Color2 : '#4614E9',
     Range : 400,
-    Speed : 20,
+    Speed : 10,
     Points : 1000,
     maxSize : 10,
     minSize: 3,
@@ -118,14 +118,24 @@ var _hmt = _hmt || [];
 
     Random: function () { 
       options.Color1 = [random(0,255),random(0,255),random(0,255)]; 
-      options.Color2 = [random(0,255),random(0,255),random(0,255)];        
-      options.Speed = random(10,20);
-      options.Range = random(400);
-      options.Points = random(300,2000);
-      options.maxSize = random(1,20);
-      options.minSize = random(1,5);  
-      options.Direction = random( ['Center', 'Left','Right','Up','Down'] );  
+      options.Color2 = [random(0,255),random(0,255),random(0,255)];     
 
+      var speed = random(10,20);
+      speedControl.setValue(speed);
+
+      var range = random(400);
+      RangeControl.setValue(range);
+
+      var points = random(300,2000);
+      PointsControl.setValue(points);
+
+      var maxSize = random(1,20);
+      maxSizeControl.setValue(maxSize);
+
+      var minSize = random(1,5);  
+      minSizeControl.setValue(minSize);
+
+      options.Direction = random( ['Center', 'Left','Right','Up','Down'] );  
           // color1
           var color1 = rgbToHex(Math.floor(options.Color1[0]),Math.floor(options.Color1[1]),Math.floor(options.Color1[2]));
           color1Control.setValue(color1);
@@ -154,31 +164,24 @@ var _hmt = _hmt || [];
 
   color1Control = folder1.addColor(options, 'Color1');
   color1Control.onChange(draw);
-  color1Control.listen();
 
   color2Control = folder1.addColor(options, 'Color2');
   color2Control.onChange(draw);
-  color2Control.listen();
 
   speedControl = folder1.add(options, 'Speed',10,40);
   speedControl.onChange(draw);
-  speedControl.listen();
 
   PointsControl = folder1.add(options, 'Points',100,4000);
   PointsControl.onChange(draw);
-  PointsControl.listen();
 
   RangeControl = folder1.add(options, 'Range',100,2000);
   RangeControl.onChange(draw);
-  RangeControl.listen();
 
   maxSizeControl = folder1.add(options, 'maxSize',0,20);
   maxSizeControl.onChange(draw);
-  maxSizeControl.listen();
 
   minSizeControl = folder1.add(options, 'minSize',0,10);
   minSizeControl.onChange(draw);
-  minSizeControl.listen();
 
   DirControl = folder1.add(options, 'Direction',['Center', 'Left','Right','Up','Down'] );
   DirControl.listen();
