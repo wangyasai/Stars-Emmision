@@ -106,14 +106,12 @@
 
   var type;
   var options ={  
-    Background :[10,10,10],
+    Background :'#0A0A0A',
     Color1 : '#FF3054',
     Color2 : '#4614E9',
-    Range : 400,
-    Speed : 10,
-    Points : 1000,
-    maxSize : 10,
-    minSize: 3,
+    Speed : 15,
+    Counts : 1000,
+    Size : 5,
     Direction : 'Center',
 
     Random: function () { 
@@ -129,11 +127,8 @@
       var points = random(300,2000);
       PointsControl.setValue(points);
 
-      var maxSize = random(1,20);
-      maxSizeControl.setValue(maxSize);
-
-      var minSize = random(1,5);  
-      minSizeControl.setValue(minSize);
+      var Size = random(1,20);
+      SizeControl.setValue(Size);
 
       options.Direction = random( ['Center', 'Left','Right','Up','Down'] );  
           // color1
@@ -152,7 +147,7 @@
       }
 
 
-      var text, gui, config,BgControl, BgColor,color1Control,color2Control,speedControl,PointsControl,RangeControl,maxSizeControl,minSizeControl,DirControl;
+      var text, gui, config,BgControl, BgColor,color1Control,color2Control,speedControl,PointsControl,RangeControl,SizeControl,DirControl;
       window.onload = function() {
         gui = new dat.GUI();
 
@@ -171,17 +166,11 @@
   speedControl = folder1.add(options, 'Speed',10,40);
   speedControl.onChange(draw);
 
-  PointsControl = folder1.add(options, 'Points',100,4000);
+  PointsControl = folder1.add(options, 'Counts',100,4000);
   PointsControl.onChange(draw);
 
-  RangeControl = folder1.add(options, 'Range',100,2000);
-  RangeControl.onChange(draw);
-
-  maxSizeControl = folder1.add(options, 'maxSize',0,20);
-  maxSizeControl.onChange(draw);
-
-  minSizeControl = folder1.add(options, 'minSize',0,10);
-  minSizeControl.onChange(draw);
+  SizeControl = folder1.add(options, 'Size',2,10);
+  SizeControl.onChange(draw);
 
   DirControl = folder1.add(options, 'Direction',['Center', 'Left','Right','Up','Down'] );
   DirControl.listen();
