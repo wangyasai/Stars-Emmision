@@ -28,9 +28,9 @@ function draw() {
         clear();
     }else{
         rgb = hexToRgb(options.Background);
-         background(rgb.r, rgb.g, rgb.b, 30);//
-     }
-     if(options.Direction == 'Center'){
+        background(rgb.r, rgb.g, rgb.b, 30);
+    }
+    if(options.Direction == 'Center'){
         translate(width/2,height/2);
     }else if (options.Direction == 'Right'){
         translate(0,height/2);
@@ -61,13 +61,13 @@ function Star(){
     this.angle = 0;
 
     this.display = function(){
-
         var sx = map(this.x/this.z/2, -1, 1, -width, width);
         var sy = map(this.y/this.z/2, -1, 1, -height, height);
 
         var r = map(dist(sx,sy,this.px,this.py),0,width*2,options.Size,30);
 
-        var percent = norm(dist(sx,sy,0,0), 0, width/2);
+        var n = map(options.Range,0,200,0,width);
+        var percent = norm(dist(sx,sy,0,0), 0, n);
         from = color(options.Color1);
         to = color(options.Color2);
         between = lerpColor(from, to, percent);
@@ -76,13 +76,13 @@ function Star(){
         strokeWeight(r);
 
         if(this.z >= 1 && sx <= width && sx > -width && sy > -height && sy < height ){
-           line(this.px,this.py,sx,sy);   
-           this.px = sx;     
-           this.py = sy; 
-       }          
-   }
+         line(this.px,this.py,sx,sy);   
+         this.px = sx;     
+         this.py = sy; 
+     }          
+ }
 
-   this.update = function(){
+ this.update = function(){
     this.z -= options.Speed;    
     if(this.z < 1){
         this.z = random(width*1.5,width*2);

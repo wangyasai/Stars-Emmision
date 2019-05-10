@@ -86,6 +86,7 @@
     })();
   </script>
 
+
 </head>
 <body>
 
@@ -109,47 +110,45 @@
     Background :'#0A0A0A',
     Color1 : '#FF3054',
     Color2 : '#4614E9',
+    Range: 50,
     Speed : 15,
     Counts : 1000,
     Size : 5,
     Direction : 'Center',
 
+
     Random: function () { 
-      options.Color1 = [random(0,255),random(0,255),random(0,255)]; 
-      options.Color2 = [random(0,255),random(0,255),random(0,255)];     
+      var Color1 = random(['#3370ff','#ff3389','#27ff6e','#27f7ff']); 
+      color1Control.setValue(Color1);
+
+      var Color2 = random(['#3370ff','#ff3389','#27ff6e','#27f7ff']);  
+      color2Control.setValue(Color2);   
 
       var speed = random(10,20);
       speedControl.setValue(speed);
 
-      var range = random(400);
+      var range = random(100);
       RangeControl.setValue(range);
 
       var points = random(300,2000);
       PointsControl.setValue(points);
 
-      var Size = random(1,20);
+      var Size = random(1,10);
       SizeControl.setValue(Size);
 
-      options.Direction = random( ['Center', 'Left','Right','Up','Down'] );  
-          // color1
-          var color1 = rgbToHex(Math.floor(options.Color1[0]),Math.floor(options.Color1[1]),Math.floor(options.Color1[2]));
-          color1Control.setValue(color1);
+      var Direction = random( ['Center', 'Left','Right','Up','Down'] );  
+      DirControl.setValue(Direction);   
 
-          //color2
-          var color2 = rgbToHex(Math.floor(options.Color2[0]),Math.floor(options.Color2[1]),Math.floor(options.Color2[2]));
-          color2Control.setValue(color2);
-        },
+    },
+    Save : function(){
+      saveFrames("Star-Emission", "png", 1, 1);
+    }
 
-        Save : function(){
-          saveFrames("Star-Emission", "png", 1, 1);
-        },
+  }
 
-      }
-
-
-      var text, gui, config,BgControl, BgColor,color1Control,color2Control,speedControl,PointsControl,RangeControl,SizeControl,DirControl;
-      window.onload = function() {
-        gui = new dat.GUI();
+  var text, gui, config,BgControl, BgColor,color1Control,color2Control,speedControl,PointsControl,RangeControl,SizeControl,DirControl,RangeControl;
+  window.onload = function() {
+    gui = new dat.GUI();
 
   //folder1
   var folder1 = gui.addFolder('Controls');
@@ -163,6 +162,9 @@
   color2Control = folder1.addColor(options, 'Color2');
   color2Control.onChange(draw);
 
+  RangeControl = folder1.add(options, 'Range',0,400);
+  RangeControl.onChange(draw);
+
   speedControl = folder1.add(options, 'Speed',10,40);
   speedControl.onChange(draw);
 
@@ -174,6 +176,8 @@
 
   DirControl = folder1.add(options, 'Direction',['Center', 'Left','Right','Up','Down'] );
   DirControl.listen();
+
+
 
   var RandomControl = folder1.add(options, 'Random');
 
