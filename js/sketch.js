@@ -24,11 +24,17 @@ function setup() {
 
 
 function draw() {
+
     if(options.isPNG == true){
         clear();
     }else{
         rgb = hexToRgb(options.Background);
         background(rgb.r, rgb.g, rgb.b, 30);
+    }
+
+
+    if(frameCount<10){
+        background(10);
     }
     if(options.Direction == 'Center'){
         translate(width/2,height/2);
@@ -76,13 +82,13 @@ function Star(){
         strokeWeight(r);
 
         if(this.z >= 1 && sx <= width && sx > -width && sy > -height && sy < height ){
-         line(this.px,this.py,sx,sy);   
-         this.px = sx;     
-         this.py = sy; 
-     }          
- }
+           line(this.px,this.py,sx,sy);   
+           this.px = sx;     
+           this.py = sy; 
+       }          
+   }
 
- this.update = function(){
+   this.update = function(){
     this.z -= options.Speed;    
     if(this.z < 1){
         this.z = random(width*1.5,width*2);

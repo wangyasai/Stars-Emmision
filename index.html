@@ -166,18 +166,16 @@
   RangeControl.onChange(draw);
 
   speedControl = folder1.add(options, 'Speed',10,40);
-  speedControl.onChange(draw);
+  speedControl.onChange(setup);
 
   PointsControl = folder1.add(options, 'Counts',100,4000);
-  PointsControl.onChange(draw);
+  PointsControl.onChange(setup);
 
   SizeControl = folder1.add(options, 'Size',2,10);
-  SizeControl.onChange(draw);
+  SizeControl.onChange(setup);
 
   DirControl = folder1.add(options, 'Direction',['Center', 'Left','Right','Up','Down'] );
-  DirControl.listen();
-
-
+  DirControl.onChange(setup);
 
   var RandomControl = folder1.add(options, 'Random');
 
