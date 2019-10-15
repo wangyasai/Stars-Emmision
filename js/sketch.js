@@ -36,7 +36,7 @@ function draw() {
     if(frameCount<10){
         background(10);
     }
-    if(options.Direction == 'Center'){
+    if(options.Direction == 'Center-Inward' || options.Direction == 'Center-Outward'  ){
         translate(width/2,height/2);
     }else if (options.Direction == 'Right'){
         translate(0,height/2);
@@ -57,8 +57,8 @@ function draw() {
 
 
 function Star(){
-    this.x = random(-width*2,width*2);
-    this.y = random(-height*4,height*4);
+    this.x = random(-width*3,width*3);
+    this.y = random(-width*3,width*3);
     this.z = random(width*2,width*4);
     this.pz = this.z;
     this.px = this.x;
@@ -70,7 +70,11 @@ function Star(){
         var sx = map(this.x/this.z/2, -1, 1, -width, width);
         var sy = map(this.y/this.z/2, -1, 1, -height, height);
 
-        var r = map(dist(sx,sy,this.px,this.py),0,width*2,options.Size,30);
+        if(options.Direction == 'Center-Inward'){
+            var r = map(dist(0,0,this.px,this.py),0,width/2, 0, options.Size);
+        }else{
+            var r = map(dist(sx,sy,this.px,this.py),0,width*2,3,options.Size);
+        }
 
         var n = map(options.Range,0,200,0,width);
         var percent = norm(dist(sx,sy,0,0), 0, n);
@@ -89,14 +93,25 @@ function Star(){
    }
 
    this.update = function(){
-    this.z -= options.Speed;    
-    if(this.z < 1){
+    if(options.Direction == 'Center-Inward'){
+       this.z += options.Speed;    
+       if( dist(0,0,this.px,this.py) < options.Range || this.z > width*3 ){
+        this.angle = random(TWO_PI);
         this.z = random(width*1.5,width*2);
-        this.x = random(-width,width);
-        this.y = random(-height*2,height*2);
+        this.x = random(-width*2,width*2);
+        this.y = random(-width*2,width*2);
+        this.px = map(this.x/this.z/2, -1, 1, -width, width);
+        this.py = map(this.y/this.z/2, -1, 1, -height, height);
+    }
+}else{
+    this.z -= options.Speed;    
+    if(this.z<1|| dist(0,0,this.px,this.py)< options.Range){
+        this.z = random(width*1.5,width*2);
+        this.x = random(-width*2,width*2);
+        this.y = random(-width*2,width*2);
         this.px = map(this.x/this.z/2, -1, 1, -width, width);
         this.py = map(this.y/this.z/2, -1, 1, -height, height);
     }
 }
-
+}
 }
