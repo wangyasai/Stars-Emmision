@@ -111,7 +111,7 @@
     Color1 : '#FF3054',
     Color2 : '#4614E9',
     Range: 50,
-    Speed : 35,
+    Speed : 25,
     Counts : 1000,
     Size : 5,
     Direction: 'Center-Outward',
@@ -123,7 +123,7 @@
       var Color2 = random(['#3370ff','#ff3389','#27ff6e','#27f7ff']);  
       color2Control.setValue(Color2);   
 
-      var speed = random(10,20);
+      var speed = random(10,30);
       speedControl.setValue(speed);
 
       var range = random(100);
@@ -170,7 +170,7 @@
   PointsControl = folder1.add(options, 'Counts',100,4000);
   PointsControl.onChange(setup);
 
-  SizeControl = folder1.add(options, 'Size',2,50);
+  SizeControl = folder1.add(options, 'Size',1,15);
   SizeControl.onChange(setup);
 
   DirControl = folder1.add(options, 'Direction',['Center-Outward',  'Center-Inward','Left','Right','Up','Down'] );

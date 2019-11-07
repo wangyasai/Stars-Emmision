@@ -73,7 +73,7 @@ function Star(){
         if(options.Direction == 'Center-Inward'){
             var r = map(dist(0,0,this.px,this.py),0,width/2, 0, options.Size);
         }else{
-            var r = map(dist(sx,sy,this.px,this.py),0,width*2,3,options.Size);
+            var r = map(dist(sx,sy,this.px,this.py),0,width/2,options.Size,options.Size*4);
         }
 
         var n = map(options.Range,0,200,0,width);
@@ -105,7 +105,7 @@ function Star(){
     }
 }else{
     this.z -= options.Speed;    
-    if(this.z<1|| dist(0,0,this.px,this.py)< options.Range){
+    if(this.z<1 ){
         this.z = random(width*1.5,width*2);
         this.x = random(-width*2,width*2);
         this.y = random(-width*2,width*2);
